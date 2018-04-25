@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Connect Four</title>
+    <link rel="stylesheet" href="connectFour.css">
+  </head>
+  <body>
+  	<h1> Connect Four </h1>
+    <br>
+    <br>
+
+    <!-- Inspired by: https://codepen.io/natewiley/pen/Ciwyn -->
+    <div id="particle-container">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+
+    <div>
+    	<font id="turnLine" color="white">**************</font>
+      <p id="message">Welcome</p>
+    </div>
+
+    <br>
+  	<div>
+		  <table id="gameBoard">
+	      <tr id="">
+	        <td align="center"><input type="button" onclick="playInColumn(0)"></td>
+          <td align="center"><input type="button" onclick="playInColumn(1)"></td>
+          <td align="center"><input type="button" onclick="playInColumn(2)"></td>
+          <td align="center"><input type="button" onclick="playInColumn(3)"></td>
+          <td align="center"><input type="button" onclick="playInColumn(4)"></td>
+          <td align="center"><input type="button" onclick="playInColumn(5)"></td>
+          <td align="center"><input type="button" onclick="playInColumn(6)"></td>
+	      </tr>
+        <tr>
+          <td onclick="playInColumn(0)">o</td>
+          <td onclick="playInColumn(1)">o</td>
+          <td onclick="playInColumn(2)">o</td>
+          <td onclick="playInColumn(3)">o</td>
+          <td onclick="playInColumn(4)">o</td>
+          <td onclick="playInColumn(5)">o</td>
+          <td onclick="playInColumn(6)">o</td>
+        </tr>
+        <tr>
+          <td onclick="playInColumn(0)">o</td>
+          <td onclick="playInColumn(1)">o</td>
+          <td onclick="playInColumn(2)">o</td>
+          <td onclick="playInColumn(3)">o</td>
+          <td onclick="playInColumn(4)">o</td>
+          <td onclick="playInColumn(5)">o</td>
+          <td onclick="playInColumn(6)">o</td>
+        </tr>
+        <tr>
+          <td onclick="playInColumn(0)">o</td>
+          <td onclick="playInColumn(1)">o</td>
+          <td onclick="playInColumn(2)">o</td>
+          <td onclick="playInColumn(3)">o</td>
+          <td onclick="playInColumn(4)">o</td>
+          <td onclick="playInColumn(5)">o</td>
+          <td onclick="playInColumn(6)">o</td>
+        </tr>
+        <tr>
+          <td onclick="playInColumn(0)">o</td>
+          <td onclick="playInColumn(1)">o</td>
+          <td onclick="playInColumn(2)">o</td>
+          <td onclick="playInColumn(3)">o</td>
+          <td onclick="playInColumn(4)">o</td>
+          <td onclick="playInColumn(5)">o</td>
+          <td onclick="playInColumn(6)">o</td>
+        </tr>
+        <tr>
+          <td onclick="playInColumn(0)">o</td>
+          <td onclick="playInColumn(1)">o</td>
+          <td onclick="playInColumn(2)">o</td>
+          <td onclick="playInColumn(3)">o</td>
+          <td onclick="playInColumn(4)">o</td>
+          <td onclick="playInColumn(5)">o</td>
+          <td onclick="playInColumn(6)">o</td>
+        </tr>
+        <tr>
+          <td onclick="playInColumn(0)">o</td>
+          <td onclick="playInColumn(1)">o</td>
+          <td onclick="playInColumn(2)">o</td>
+          <td onclick="playInColumn(3)">o</td>
+          <td onclick="playInColumn(4)">o</td>
+          <td onclick="playInColumn(5)">o</td>
+          <td onclick="playInColumn(6)">o</td>
+        </tr>
+        <tr id="feet">
+          <td id="leftfoot">o</td>
+          <td id="centerfoot">o</td>
+          <td id="centerfoot">o</td>
+          <td id="centerfoot">o</td>
+          <td id="centerfoot">o</td>
+          <td id="centerfoot">o</td>
+          <td id="rightfoot">o</td>
+        </tr>
+	    </table>
+	    <br>
+	    <div id="getNameAndColor">
+	      <p id="playerNames">
+	      	<input type="text" id="player1name" placeholder="player 1's name">
+	      	<input type="text" id="player2name" placeholder="player 2's name">
+	      </p>
+	      <p id="playerColors">
+	      	<input type="color" value="#FFFF00" id="player1color">
+	      	<input type="color" value="#FF0000" id="player2color">
+	      </p>
+	      <p><button onclick="updatePlayer()">Play</button></p> 
+	    </div>
+
+      <!-- <p><input type="button" onclick="nextTurn()" value="skip turn"></p> -->
+    </div>
+    <footer>
+    <!-- <a href="mailto:treretter@gmail.com?subject=Connect%20four&body=How%20are%20you">feedback @</a><br> -->
+    </footer>
+    <br>
+    <br>
+    <br>
+    <script type = "text/javascript">
+
+      document.getElementById('particle-container').style.display = 'none'; // hide the winning dots.
+      document.getElementById('message').style.display = 'none'; // hide the message.
+      document.getElementById('gameBoard').style.display = 'none'; // hide the gameBoard.
+
+      function showDots(){
+        document.getElementById('particle-container').style.display = 'block'; // show winning dots.
+      }
+
+      function showGame(){
+      	document.getElementById('getNameAndColor').style.display = 'none'; // hide the get name and color intro.
+      	document.getElementById('message').style.display = 'block'; // show the message.
+        document.getElementById('gameBoard').style.display = 'block'; // show the gameBoard.
+        document.getElementById('gameBoard').style.color = '#ecf3f3'; // set text color to hide open cells
+      }
+
+      let emptyCell = 'o'; // value of empty cells.
+      let gameover = false;
+
+      // get player names
+      let player1 = {
+        name: 'Player 1', //prompt('Player 1, please enter your name', 'Player 1'),
+        icon: 1,
+        color: document.getElementById("player1color").value
+      };
+      let player2 = {
+        name: 'Player 2', //prompt('Player 2, please enter your name', 'Player 2'),
+        icon: 2,
+        color: document.getElementById("player2color").value
+      };
+      // set first player
+      let player = player1; 
+
+      // get player names and color - user input 
+      function updatePlayer() {
+      	player1.color = document.getElementById("player1color").value;
+      	player2.color = document.getElementById("player2color").value;
+
+      	let p1name = document.getElementById("player1name").value;
+      	let p2name = document.getElementById("player2name").value;
+
+      	if (p1name) {
+      	  player1.name = p1name;
+      	}
+        if (p2name) {
+      	  player2.name = p2name;
+      	}
+      	updateMessage();
+      	showGame();
+      }
+
+
+      // update message
+      function updateMessage() {
+        let msg = document.getElementById("message");
+      msg.innerHTML = "It's " + player.name + "\'s turn";
+      document.getElementById("turnLine").style.color = player.color;
+      }
+      updateMessage();
+      
+
+      // change player / take turns
+      function nextTurn() { // return next player
+        if (player === player1) {
+          player = player2;
+        } else {
+          player = player1;
+        }
+        updateMessage();
+      }
+
+
+      // get cell data
+      function getCell(row, col, from) {
+        if (row === undefined || col === undefined) {
+          console.log('undefined', row, col, from);
+        }
+        return (document.getElementById("gameBoard").rows[row].cells.item(col).innerHTML);
+      }
+
+
+      // play your turn
+      function playInColumn(col) {
+      	if (gameover) {
+      		//alert("game over. refresh the page to play again.");
+      		return;
+      	}
+        let row = 6; // start at the bottom row.
+        let cellContent = getCell(row, col, 'playInColumn'); // get current cell content.
+
+        while (cellContent !== emptyCell) { // climb the column until an empty cell is found.
+          row--;
+          if (row < 1) { // if column is full...
+            // display message that the column is full
+            document.getElementById("message").innerHTML = (player.name + ', this column is full, try a different one.');
+            return;
+          }
+          cellContent = getCell(row, col, 'playInColumn'); // update current cell content.
+        }
+
+        let playCell = (document.getElementById("gameBoard").rows[row].cells[col]);
+        playCell.innerHTML = player.icon; // change cell content to player's icon.
+        playCell.style.backgroundColor = player.color; // change cell background color to player's color.
+        playCell.style.color = player.color; // change cell text color to player's color.
+        if (winCheck(row, col)) {
+          return;
+        }
+        nextTurn(); // change player and update message.
+      }
+
+
+      // winner message
+      function winnerMessage(player) {
+        document.getElementById("message").innerHTML = '*** ' + player.name + ' is the winner! *** <br /> (refresh page to play again)';
+        showDots(); // show winning dots.
+        gameover = true;
+      }
+
+      // line check 
+      function fourInARow(checkLine) { // returns true if there are 4 in a row.
+        let fourRow = player.icon.toString().repeat(4);
+        return (checkLine.join('').includes(fourRow));
+      }
+
+
+      // win check        
+      function winCheck(rowPlaced, colPlaced) { // return game_over ? true : false;
+        
+        let col = colPlaced;
+        let row = rowPlaced;
+        let checkLine = [];
+
+        function resetxy() {
+          col = colPlaced;
+          row = rowPlaced;
+          checkLine = [];
+        }
+
+        // check vertical            ||||||||||||||
+        if (row < 4) {
+          while (row <= 6) {
+            checkLine.push(getCell(row, col, 'vertical'));
+            row++;
+          }
+          if (fourInARow(checkLine)) {
+            winnerMessage(player);
+            return true;
+          }
+        }
+
+        resetxy();
+        // check horizontal              ----------------
+        let fullRow = [];
+        for (col = 0; col < 7; col++) {
+          fullRow.push(getCell(row, col, 'check horizontal')); // make array of elements in row.
+        }
+        if (fourInARow(fullRow)) {
+          winnerMessage(player);
+          return true;
+        }
+
+        resetxy();
+        // check diagonal Up Left \ Down Right \\\\\\\\\\\
+        while (col > 0 && row > 1) {
+          col--;
+          row--;
+        }
+        while (col < 7 && row < 7) {
+          checkLine.push(getCell(row, col, 'up-left'));
+          col++;
+          row++;
+        }
+        if (fourInARow(checkLine)) {
+          winnerMessage(player);
+          return true;
+        }
+
+        resetxy();
+        // check diagonal Up Right / Down Left /////////////
+        while (col < 6 && row > 1) {
+          col++;
+          row--;
+        }
+        while (col >= 0 && row < 7) {
+          checkLine.push(getCell(row, col, 'up-right'));
+          col--;
+          row++;
+        }
+        if (fourInARow(checkLine)) {
+          winnerMessage(player);
+          return true;
+        }
+        
+        // check for tie
+        
+        return false; // keep playing
+      }
+
+
+
+    </script>
+  </body>
+</html>
+
